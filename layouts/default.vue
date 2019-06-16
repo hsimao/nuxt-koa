@@ -1,8 +1,8 @@
 <template>
-  <el-container class="layout-defalut">
-    <el-header height="40px">
+  <el-container class="layout-default">
+    <header class="header">
       <Header />
-    </el-header>
+    </header>
     <el-main>
       <nuxt />
     </el-main>
@@ -20,3 +20,12 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.header {
+  background: #f8f8f8;
+  color: #999;
+  width: 100%;
+  font-size: 12px;
+}
+</style>
