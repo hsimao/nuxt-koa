@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import TopBar from './TopBar'
-import SearchBar from './SearchBar'
+import TopBar from './topBar'
+import SearchBar from './searchBar'
 
 export default {
   name: 'Header',

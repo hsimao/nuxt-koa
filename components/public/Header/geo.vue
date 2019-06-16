@@ -10,8 +10,8 @@
 
 <script>
 export default {
-  name: 'geo'
+  name: 'Geo'
 }
 </script>
 
-<style lang="scss" src="./style.scss" scoped></style>
+<style lang="scss" scoped></style>

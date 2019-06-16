@@ -128,8 +128,9 @@
 </template>
 
 <script>
-export default {}
+export default {
+  name: 'Navbar'
+}
 </script>
 
-<style lang="css">
-</style>
+<style lang="scss"></style>

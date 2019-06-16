@@ -15,12 +15,12 @@
 </template>
 
 <script>
-import Geo from '../Geo'
-import User from '../User'
-import Navbar from '../Nav'
+import Geo from './geo'
+import User from './user'
+import Navbar from './navbar'
 
 export default {
-  name: 'topbar',
+  name: 'TopBar',
   components: {
     Geo,
     User,

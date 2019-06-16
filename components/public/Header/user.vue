@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: 'user',
+  name: 'User',
   data() {
     return {
       user: ''
@@ -22,4 +22,4 @@ export default {
 }
 </script>
 
-<style lang="scss" src="./style.scss" scoped></style>
+<style lang="scss" scoped></style>
