@@ -5,22 +5,30 @@
       <el-col :span="5">
         <Menu />
       </el-col>
-      <el-col :span="19"></el-col>
+      <el-col :span="19">
+        <Life />
+      </el-col>
     </el-row>
 
     <!-- section 2 -->
     <el-row :span="24">
-      <el-col>3</el-col>
+      <el-col>
+        <Artistic />
+      </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
 import Menu from '~/components/index/menu'
+import Life from '~/components/index/life.vue'
+import Artistic from '~/components/index/artistic.vue'
 
 export default {
   components: {
-    Menu
+    Menu,
+    Life,
+    Artistic
   }
 }
 </script>
