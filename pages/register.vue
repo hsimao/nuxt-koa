@@ -27,19 +27,19 @@
           label="信箱"
           prop="email">
           <el-input v-model="ruleForm.email" />
-          <el-button
+          <!-- <el-button
             size="mini"
             round
             @click="sendMsg">發送驗證碼</el-button>
-          <span class="status">{{ statusMsg }}</span>
+          <span class="status">{{ statusMsg }}</span> -->
         </el-form-item>
-        <el-form-item
+        <!-- <el-form-item
           label="驗證碼"
           prop="code">
           <el-input
             v-model="ruleForm.code"
             maxlength="4" />
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item
           label="密碼"
           prop="pwd">
@@ -72,6 +72,8 @@
 </template>
 
 <script>
+import CryptoJS from 'crypto-js'
+
 export default {
   name: 'page-register',
   layout: 'blank',
@@ -134,11 +136,75 @@ export default {
     }
   },
   methods: {
+    // 發送取得驗證碼
     sendMsg() {
+      const _this = this
       console.log('sendMsg')
+      let namePass
+      let emailPass
+      if (_this.timerid) {
+        return false
+      }
+      _this.$refs['ruleForm'].validateField('name', valid => {
+        namePass = valid
+      })
+      _this.statusMsg = ''
+      if (namePass) {
+        return false
+      }
+      _this.$refs['ruleForm'].validateField('email', valid => {
+        emailPass = valid
+      })
+
+      if (!namePass && !emailPass) {
+        _this.$axios
+          .post('/users/verify', {
+            username: encodeURIComponent(_this.ruleForm.name),
+            email: _this.ruleForm.email
+          })
+          .then(({ status, data }) => {
+            if (status === 200 && data && data.code === 0) {
+              let count = 60
+              _this.statusMsg = `驗證碼已發送, 剩餘${count--}秒`
+              _this.timerid = setInterval(() => {
+                _this.statusMsg = `驗證碼已發送, 剩餘${count--}秒`
+                if (count === 0) {
+                  clearInterval(_this.timerid)
+                }
+              }, 1000)
+            } else {
+              _this.statusMsg = data.msg
+            }
+          })
+      }
     },
     register() {
       console.log('register')
+      const _this = this
+      this.$refs['ruleForm'].validate(valid => {
+        if (valid) {
+          _this.$axios
+            .post('/users/signup', {
+              username: encodeURIComponent(_this.ruleForm.name),
+              // 密碼使用 CryptoJS 加密完後在發送
+              password: CryptoJS.MD5(_this.ruleForm.pwd).toString(),
+              email: _this.ruleForm.email,
+              code: _this.ruleForm.code
+            })
+            .then(({ status, data }) => {
+              if (status === 200) {
+                if (data && data.code === 0) {
+                  location.href = '/login'
+                } else {
+                  _this.error = data.msg
+                }
+              } else {
+                _this.error = `伺服器出錯, 錯誤碼: ${status}`
+              }
+              setTimeout(() => (_this.error = ''), 1500)
+            })
+        }
+      })
     }
   }
 }
