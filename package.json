@@ -20,7 +20,7 @@
     "koa": "^2.5.2",
     "koa-generic-session": "^2.0.1",
     "koa-redis": "^4.0.0",
-    "nuxt": "^2.0.0"
+    "nuxt": "^2.15.8"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
